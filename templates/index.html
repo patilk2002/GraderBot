@@ -74,6 +74,31 @@
             bottom: 0;
             width: 100%;
         }
+        #result {
+            margin-top: 20px;
+        }
+
+        #result img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #result h2 {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        #result p {
+            color: #333;
+        }
+
+        #result .tick-mark {
+            color: red;
+            font-size: 24px;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -89,7 +114,14 @@
         </form>
 
         {% if similarity is defined %}
-            <h2>Similarity Score: {{ similarity }}</h2>
+            <div id="result">
+                <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Answer Sheet">
+                <h2>Similarity Score: {{ similarity }}</h2>
+                <p>
+                    <span class="tick-mark">&#10004;</span>
+                    Accuracy: {{ similarity * 100 }}%
+                </p>
+            </div>
         {% endif %}
 
         {% if error is defined %}

@@ -34,6 +34,7 @@ def remove_stopwords(text):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     similarity = None
+    image_path = None
 
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -45,8 +46,12 @@ def index():
             return render_template('index.html', error='No selected file')
 
         if file:
-            filename = secure_filename(file.filename)
-            image_path = f"uploads/{filename}"
+            # filename = secure_filename(file.filename)
+            # image_path = f"uploads/{filename}"
+
+            image_filename = secure_filename(file.filename)
+            image_path = f"uploads/{image_filename}"
+
             file.save(image_path)
 
             actual_answer = """Electric vehicles are poised to dominate the automotive sector. With escalating climate concerns, governments will likely impose restrictions on gasoline car production. Increasing fuel prices will challenge the affordability of operating conventional vehicles. Advancements in battery tech will enhance electric cars' range and affordability. Ultimately, electric cars are expected to replace the majority of gasoline-powered vehicles."""
@@ -57,7 +62,7 @@ def index():
 
             similarity = calculate_semantic_similarity(actual_answer_processed, student_text_processed)
 
-    return render_template('index.html', similarity=similarity)
+    return render_template('index.html', similarity=similarity, image_filename=image_filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
