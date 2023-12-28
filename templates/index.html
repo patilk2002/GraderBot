@@ -4,22 +4,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Similarity Checker</title>
+    <title>Answer Sheet Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        p.error {
+            color: red;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Image Similarity Checker</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <label for="file">Choose an image:</label>
-        <input type="file" name="file" accept=".png, .jpg, .jpeg">
-        <button type="submit">Submit</button>
-    </form>
+    <header>
+        <h1>Answer Sheet Checker</h1>
+    </header>
 
-    {% if similarity is defined %}
-        <h2>Similarity Score: {{ similarity }}</h2>
-    {% endif %}
+    <main>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="file">Upload Answer Sheet:</label>
+            <input type="file" name="file" accept=".png, .jpg, .jpeg">
+            <button type="submit">Check Answers</button>
+        </form>
 
-    {% if error is defined %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
+        {% if similarity is defined %}
+            <h2>Similarity Score: {{ similarity }}</h2>
+        {% endif %}
+
+        {% if error is defined %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Answer Sheet Checker</p>
+    </footer>
 </body>
 </html>
