@@ -74,6 +74,10 @@
             bottom: 0;
             width: 100%;
         }
+
+
+
+        
         #result {
             margin-top: 20px;
         }
@@ -99,6 +103,10 @@
             font-size: 24px;
             margin-right: 5px;
         }
+
+
+
+        
     </style>
 </head>
 <body>
@@ -122,6 +130,17 @@
                     Accuracy: {{ similarity * 100 }}%
                 </p>
             </div>
+
+            {% else %}
+            <div id="result">
+                <img src="{{ url_for('static', filename='default_image.jpg') }}" alt="Default Answer Sheet">
+                <h2>Default Similarity Score: 0.0</h2>
+                <p>
+                    <span class="tick-mark">&#10008;</span>
+                    No image uploaded yet.
+                </p>
+            </div>
+            
         {% endif %}
 
         {% if error is defined %}
@@ -130,7 +149,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Answer Sheet Checker</p>
+        <p>&copy; 2023 Kiran Patil</p>
     </footer>
 </body>
 </html>
