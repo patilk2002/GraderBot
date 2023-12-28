@@ -2,8 +2,7 @@ from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 from sentence_transformers import SentenceTransformer, util
 from PIL import Image
-import pytesseract
-import io
+import easyocr
 import nltk
 from nltk.corpus import stopwords
 
@@ -21,9 +20,9 @@ def calculate_semantic_similarity(sentence1, sentence2):
     return cosine_score.item()
 
 def get_text_from_image(image_path):
-    img = Image.open(image_path)
-    student_text = pytesseract.image_to_string(img)
-    student_text = student_text.replace('\n', ' ')
+    reader = easyocr.Reader(['en'])
+    results = reader.readtext(image_path)
+    student_text = ' '.join([result[1] for result in results])
     return student_text
 
 def remove_stopwords(text):
